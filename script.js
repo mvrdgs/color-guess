@@ -9,7 +9,10 @@ function resetGame() {
   chooseAnswer();
   setRandomColors();
   setRightAnswer();
-  document.querySelector('#selectAnswer').id = '';
+  const resetAnswer = document.querySelector('#selectAnswer');
+  if (resetAnswer !== null) {
+    document.querySelector('#selectAnswer').id = '';
+  }
   answerText.innerText = '';
 }
 
