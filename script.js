@@ -7,6 +7,12 @@ const score = document.querySelector('#score');
 let gameAnswer;
 let scoreResult = 0;
 
+function resetIds() {
+  for (let index = 0; index < circles.length; index += 1) {
+    circles[index].removeAttribute('id');
+  }
+}
+
 function setScore() {
   score.innerText = `Placar: ${scoreResult}`;
 }
@@ -59,10 +65,7 @@ function resetGame() {
   chooseAnswer();
   setRandomColors();
   setRightAnswer();
-  const resetAnswer = document.querySelector('#selectAnswer');
-  if (resetAnswer !== null) {
-    document.querySelector('#selectAnswer').id = '';
-  }
+  resetIds();
   answerText.innerText = '';
 }
 
