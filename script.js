@@ -3,37 +3,34 @@ const optionsContainer = document.querySelector('#options-container');
 const rightAnswerColor = document.querySelector('#rgb-color');
 const answerText = document.querySelector('#answer-text');
 const resetButton = document.querySelector('#reset-game');
+const score = document.querySelector('#score');
 let gameAnswer;
+let scoreResult = 0;
 
-function resetGame() {
-  chooseAnswer();
-  setRandomColors();
-  setRightAnswer();
-  const resetAnswer = document.querySelector('#selectAnswer');
-  if (resetAnswer !== null) {
-    document.querySelector('#selectAnswer').id = '';
-  }
-  answerText.innerText = '';
+function setScore() {
+  score.innerText = `Placar: ${scoreResult}`;
 }
 
 function verifyAnwser() {
   const selectedAnwser = document.querySelector('#selectAnswer');
   if (selectedAnwser.style.backgroundColor === gameAnswer.style.backgroundColor) {
     answerText.innerText = 'Acertou!';
+    scoreResult += 3;
+    setScore();
   } else {
-    answerText.innerText = 'Errou! Tente novamente!'
+    answerText.innerText = 'Errou! Tente novamente!';
   }
 }
 
 function setRightAnswer() {
-  const rightAnswer = circles[Math.floor((Math.random()*circles.length))];
+  const rightAnswer = circles[Math.floor((Math.random() * circles.length))];
   rightAnswerColor.innerHTML = rightAnswer.style.backgroundColor;
   gameAnswer = rightAnswer;
 }
 
 function chooseAnswer() {
-  optionsContainer.addEventListener('click', () => {
-    const answer = event.target;
+  optionsContainer.addEventListener('click', (e) => {
+    const answer = e.target;
     const answerLimiter = document.querySelector('#selectAnswer');
     if (answerLimiter === null && answer.classList.contains('ball')) {
       answer.id = 'selectAnswer';
@@ -58,6 +55,18 @@ function setRandomColors() {
   }
 }
 
+function resetGame() {
+  chooseAnswer();
+  setRandomColors();
+  setRightAnswer();
+  const resetAnswer = document.querySelector('#selectAnswer');
+  if (resetAnswer !== null) {
+    document.querySelector('#selectAnswer').id = '';
+  }
+  answerText.innerText = '';
+}
+
+setScore();
 resetButton.addEventListener('click', resetGame);
 chooseAnswer();
 setRandomColors();
